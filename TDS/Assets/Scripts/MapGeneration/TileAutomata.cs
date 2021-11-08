@@ -136,21 +136,37 @@ public class TileAutomata : MonoBehaviour
         }
     }
 
-    // void Update()
-    // {
-    //     if(Input.GetMouseButtonDown(0))
-    //     {
-    //         DoSim(numRepetitions);
-    //     }
-
-    //     if(Input.GetMouseButtonDown(1))
-    //     {
-    //         ClearMap(true);
-    //     }
-    // }
     public void GenerateMap()
     {
         DoSim(numRepetitions);
     }
 
+    public Vector3 GetRandomCellPosition()
+    {
+        List<Vector3> availTiles = new List<Vector3>();
+        Grid grid = botMap.layoutGrid;
+        foreach(var position in botMap.cellBounds.allPositionsWithin)
+        {
+            if(!botMap.HasTile(position)) continue;
+
+            availTiles.Add(grid.GetCellCenterWorld(position));
+        }
+
+        return availTiles[Random.Range(0, availTiles.Count)];
+    }
+
+
+    public List<Vector3> GetAvailableTiles()
+    {
+        List<Vector3> availTiles = new List<Vector3>();
+        Grid grid = botMap.layoutGrid;
+        foreach(var position in botMap.cellBounds.allPositionsWithin)
+        {
+            if(!botMap.HasTile(position)) continue;
+            Debug.Log(grid.GetCellCenterWorld(position));
+            availTiles.Add(grid.GetCellCenterWorld(position));
+        }
+
+        return availTiles;
+    }
 }

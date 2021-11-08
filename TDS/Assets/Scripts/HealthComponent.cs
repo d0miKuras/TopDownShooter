@@ -2,15 +2,18 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class HealthComponent : MonoBehaviour
 {
     public float maxHealth = 100f;
     private float _health;
 
+
     private void Start()
     {
         _health = maxHealth;
+
     }
 
     public void TakeDamage(float dmg)
