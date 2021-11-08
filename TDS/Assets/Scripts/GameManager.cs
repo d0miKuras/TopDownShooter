@@ -4,6 +4,12 @@ using UnityEngine;
 using Pathfinding;
 using UnityEngine.Events;
 using System;
+public enum GameState
+{
+    Prewave,
+    Wave,
+    Postwave
+};
 
 public class GameManager : MonoBehaviour
 {
@@ -11,6 +17,8 @@ public class GameManager : MonoBehaviour
     public TileAutomata tileAutomata;
     public AstarPath pathfinder;
     public float beetlePerWaveCoefficient = 2f;
+    public float timeBetweenWaves = 3.0f;
+    GameState state = GameState.Prewave;
     
     
     public GameObject beetlePrefab;
@@ -30,7 +38,6 @@ public class GameManager : MonoBehaviour
         spawnManager = GetComponent<SpawnManager>();
         spawnManager.SpawnPlayer();
         SpawnEnemies();
-
     }
 
     private IEnumerator ScanMap()
@@ -48,6 +55,13 @@ public class GameManager : MonoBehaviour
             frameCount++;
         }
 
+        if(_enemiesAlive == 0 && state == GameState.Wave)
+        {
+            state = GameState.Postwave;
+            Debug.Log("All enemies died.");
+            StartCoroutine(StartNewWave());
+        }
+
         
     }
 
@@ -59,5 +73,19 @@ public class GameManager : MonoBehaviour
             var spawnedEnemy = spawnManager.SpawnEnemy(beetlePrefab);
             _enemiesAlive++;
         }
+        state = GameState.Wave;
+    }
+
+    IEnumerator StartNewWave()
+    {
+        _currentWave++;
+        state = GameState.Prewave;
+        yield return new WaitForSeconds(timeBetweenWaves);
+        SpawnEnemies();
+    }
+
+    public void EnemyDied()
+    {
+        _enemiesAlive--;
     }
 }
