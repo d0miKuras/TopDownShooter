@@ -8,18 +8,22 @@ public class Shooting : MonoBehaviour
     public Transform muzzlePoint;
     public GameObject bulletPrefab;
     public float bulletForce = 20f;
+    public float timeBetwenShots = 0.3f;
+    private float _lastTimeShot;
 
     // Update is called once per frame
     void Update()
     {
         if (Input.GetButtonDown("Fire1"))
         {
-            Shoot();
+            if(Time.time - _lastTimeShot > timeBetwenShots)
+                Shoot();
         }
     }
 
     private void Shoot()
     {
+        _lastTimeShot = Time.time;
         GameObject bullet = Instantiate(bulletPrefab, muzzlePoint.position, muzzlePoint.rotation);
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         rb.AddForce(muzzlePoint.up * bulletForce, ForceMode2D.Impulse);
