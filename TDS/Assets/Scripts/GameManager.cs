@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
-using UnityEngine.Events;
+using UnityEngine.UI;
 using System;
 public enum GameState
 {
@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     public AstarPath pathfinder;
     public float beetlePerWaveCoefficient = 2f;
     public float timeBetweenWaves = 3.0f;
+    public Text waveCounter;
     GameState state = GameState.Prewave;
     
     
@@ -35,15 +36,10 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
+        SetCurrentWave();
         spawnManager = GetComponent<SpawnManager>();
         spawnManager.SpawnPlayer();
         SpawnEnemies();
-    }
-
-    private IEnumerator ScanMap()
-    {
-        
-        yield return null;
     }
 
     // Update is called once per frame
@@ -62,7 +58,6 @@ public class GameManager : MonoBehaviour
             StartCoroutine(StartNewWave());
         }
 
-        
     }
 
     void SpawnEnemies()
@@ -79,6 +74,7 @@ public class GameManager : MonoBehaviour
     IEnumerator StartNewWave()
     {
         _currentWave++;
+        SetCurrentWave();
         state = GameState.Prewave;
         yield return new WaitForSeconds(timeBetweenWaves);
         SpawnEnemies();
@@ -87,5 +83,10 @@ public class GameManager : MonoBehaviour
     public void EnemyDied()
     {
         _enemiesAlive--;
+    }
+
+    public void SetCurrentWave()
+    {
+        waveCounter.text = $"{_currentWave}";
     }
 }
