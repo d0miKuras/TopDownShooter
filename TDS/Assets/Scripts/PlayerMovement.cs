@@ -48,7 +48,6 @@ public class PlayerMovement : MonoBehaviour
     {
         blockMovement = true;
         rb.freezeRotation = false;
-        Debug.Log("Coroutine started");
         rb.AddForce(-difference * 2f, ForceMode2D.Impulse);
         yield return new WaitForSeconds(knockbackTime);
         blockMovement = false;

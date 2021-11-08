@@ -8,6 +8,7 @@ public class HealthComponent : MonoBehaviour
 {
     public float maxHealth = 100f;
     private float _health;
+    public HealthBar healthBar;
 
     private void Start()
     {
@@ -17,6 +18,7 @@ public class HealthComponent : MonoBehaviour
     public void TakeDamage(float dmg)
     {
         _health = Mathf.Clamp(_health - dmg, 0f, 100f);
+        if(healthBar != null) healthBar.SetHealth(_health);
         if (_health <= 0.0f)
             Die();
     }

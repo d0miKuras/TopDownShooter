@@ -9,14 +9,15 @@ public class SpawnManager : MonoBehaviour
     public GameObject playerPrefab;
     public CinemachineVirtualCamera cinemachineCamera;
     public Camera mainCam;
+
+    public HealthBar healthBar;
     private GameObject _playerInstance;
     private TileAutomata tileAutomata;
-
-    
 
     void Start()
     {
         tileAutomata = GetComponent<TileAutomata>();
+        // healthBar = GetComponent<HealthBar>();
     }
 
     public void SpawnPlayer()
@@ -25,6 +26,7 @@ public class SpawnManager : MonoBehaviour
 
         _playerInstance = Instantiate(playerPrefab, spawnPosition, Quaternion.identity);
         _playerInstance.GetComponent<PlayerMovement>().cam = mainCam;
+        _playerInstance.GetComponent<HealthComponent>().healthBar = healthBar;
         cinemachineCamera.Follow = _playerInstance.transform;
     }
 
