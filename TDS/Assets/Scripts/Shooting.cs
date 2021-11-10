@@ -14,9 +14,9 @@ public class Shooting : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButton("Fire1"))
         {
-            if(Time.time - _lastTimeShot > timeBetwenShots)
+            if (Time.time - _lastTimeShot > timeBetwenShots)
                 Shoot();
         }
     }
@@ -25,6 +25,7 @@ public class Shooting : MonoBehaviour
     {
         _lastTimeShot = Time.time;
         GameObject bullet = Instantiate(bulletPrefab, muzzlePoint.position, muzzlePoint.rotation);
+        bullet.GetComponent<Bullet>().owner = gameObject;
         Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
         rb.AddForce(muzzlePoint.up * bulletForce, ForceMode2D.Impulse);
         Destroy(bullet, 5f);

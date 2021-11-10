@@ -20,7 +20,7 @@ public class SpawnManager : MonoBehaviour
         // healthBar = GetComponent<HealthBar>();
     }
 
-    public void SpawnPlayer()
+    public GameObject SpawnPlayer()
     {
         Vector3 spawnPosition = tileAutomata.GetRandomCellPosition();
 
@@ -28,6 +28,7 @@ public class SpawnManager : MonoBehaviour
         _playerInstance.GetComponent<PlayerMovement>().cam = mainCam;
         _playerInstance.GetComponent<HealthComponent>().healthBar = healthBar;
         cinemachineCamera.Follow = _playerInstance.transform;
+        return _playerInstance;
     }
 
     public GameObject SpawnEnemy(GameObject enemyPrefab)
@@ -36,6 +37,10 @@ public class SpawnManager : MonoBehaviour
 
         GameObject _enemyInstance = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
         _enemyInstance.GetComponent<AIDestinationSetter>().target = _playerInstance.transform;
+
+        var damageComponent = _enemyInstance.GetComponent<AIDamageComponent>();
+        damageComponent.playerTransform = _playerInstance.transform;
+
         return _enemyInstance;
     }
 }

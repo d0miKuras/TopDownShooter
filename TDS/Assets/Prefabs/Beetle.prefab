@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 636751016}
   - component: {fileID: 636751017}
   - component: {fileID: 4817405750781971261}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Beetle
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -247,7 +247,7 @@ MonoBehaviour:
   radius: 2
   height: 2
   canMove: 1
-  maxSpeed: 1
+  maxSpeed: 3
   gravity: {x: 0, y: 0, z: 0}
   groundMask:
     serializedVersion: 2
@@ -328,3 +328,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 25
+  attackType: 0
+  projectilePrefab: {fileID: 0}
+  muzzlePoint: {fileID: 0}
+  projectileSpeed: 5
+  playerTransform: {fileID: 0}
+  timeBetwenShots: 0.3

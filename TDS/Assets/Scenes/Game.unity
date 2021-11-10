@@ -675,7 +675,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 63
+    m_Bits: 959
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -874,9 +874,11 @@ MonoBehaviour:
   tileAutomata: {fileID: 944721050}
   pathfinder: {fileID: 1711624797}
   beetlePerWaveCoefficient: 2
+  rangedBeetlePerWaveCoefficient: 1.5
   timeBetweenWaves: 3
   waveCounter: {fileID: 1786092571}
   beetlePrefab: {fileID: 8900298245933769542, guid: ddd3f3532894e40198c4948cbffb3f6d, type: 3}
+  rangedBeetlePrefab: {fileID: 3155368922809516116, guid: 95c2690863cd74d3783a65ee3d0a20ab, type: 3}
 --- !u!1 &982423532
 GameObject:
   m_ObjectHideFlags: 0

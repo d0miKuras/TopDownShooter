@@ -206,7 +206,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   muzzlePoint: {fileID: 5682349473968150415}
   bulletPrefab: {fileID: 3597437842687381206, guid: c841a34d3bdba4f66a7fc404f0b8898b, type: 3}
-  bulletForce: 20
+  bulletForce: 30
+  timeBetwenShots: 0.2
 --- !u!114 &5682349473676695443
 MonoBehaviour:
   m_ObjectHideFlags: 0

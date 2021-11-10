@@ -18,7 +18,7 @@ public class HealthComponent : MonoBehaviour
     public void TakeDamage(float dmg)
     {
         _health = Mathf.Clamp(_health - dmg, 0f, 100f);
-        if(healthBar != null) healthBar.SetHealth(_health);
+        if (healthBar != null) healthBar.SetHealth(_health);
         if (_health <= 0.0f)
             Die();
     }
@@ -28,4 +28,5 @@ public class HealthComponent : MonoBehaviour
         GameObject.Find("GameManager").GetComponent<GameManager>().EnemyDied(); // Decreases the amount of alive enemies in the game manager.
         Destroy(gameObject);
     }
+
 }

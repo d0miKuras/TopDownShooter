@@ -18,7 +18,6 @@ public class TileAutomata : MonoBehaviour
     [Range(1, 10)]
     public int numRepetitions;
 
-    private int _count = 0;
     public int[,] terrainMap;
     public Vector3Int tmapSize;
 
@@ -40,28 +39,28 @@ public class TileAutomata : MonoBehaviour
         width = tmapSize.x;
         height = tmapSize.y;
 
-        if(terrainMap == null)
+        if (terrainMap == null)
         {
             terrainMap = new int[width, height];
             InitPos();
         }
 
-        for(int i = 0; i < numRepetitions; i++)
+        for (int i = 0; i < numRepetitions; i++)
         {
             terrainMap = GenTilePos(terrainMap);
         }
 
-        for(int x = 0; x < width; x++)
+        for (int x = 0; x < width; x++)
         {
-            for(int y = 0; y < height; y++)
+            for (int y = 0; y < height; y++)
             {
-                if(terrainMap[x, y] == 1)
+                if (terrainMap[x, y] == 1)
                 {
-                    topMap.SetTile(new Vector3Int(-x + width/2, -y + height/width, 0), topTile);
+                    topMap.SetTile(new Vector3Int(-x + width / 2, -y + height / width, 0), topTile);
                 }
                 else
                 {
-                    botMap.SetTile(new Vector3Int(-x + width/2, -y + height/width, 0), botTile);
+                    botMap.SetTile(new Vector3Int(-x + width / 2, -y + height / width, 0), botTile);
                 }
             }
         }
@@ -74,15 +73,15 @@ public class TileAutomata : MonoBehaviour
 
         BoundsInt bound = new BoundsInt(-1, -1, 0, 3, 3, 1);
 
-        for(int x = 0; x < width; x++)
+        for (int x = 0; x < width; x++)
         {
-            for(int y = 0; y < height; y++)
+            for (int y = 0; y < height; y++)
             {
                 neighbors = 0;
-                foreach(var b in bound.allPositionsWithin)
+                foreach (var b in bound.allPositionsWithin)
                 {
-                    if(b.x == 0 && b.y == 0) continue;
-                    if(x + b.x >= 0 && x + b.x < width && y + b.y >= 0 && y + b.y < height)
+                    if (b.x == 0 && b.y == 0) continue;
+                    if (x + b.x >= 0 && x + b.x < width && y + b.y >= 0 && y + b.y < height)
                     {
                         neighbors += oldMap[x + b.x, y + b.y];
                     }
@@ -91,17 +90,17 @@ public class TileAutomata : MonoBehaviour
                         neighbors++;
                     }
                 }
-                if(oldMap[x, y] == 1)
+                if (oldMap[x, y] == 1)
                 {
-                    if(neighbors < deathLimit) newMap[x, y] = 0;
+                    if (neighbors < deathLimit) newMap[x, y] = 0;
                     else
                     {
                         newMap[x, y] = 1;
                     }
                 }
-                if(oldMap[x, y] == 0)
+                if (oldMap[x, y] == 0)
                 {
-                    if(neighbors > birthLimit) newMap[x, y] = 1;
+                    if (neighbors > birthLimit) newMap[x, y] = 1;
                     else
                     {
                         newMap[x, y] = 0;
@@ -110,15 +109,15 @@ public class TileAutomata : MonoBehaviour
             }
         }
 
-        
+
         return newMap;
     }
 
     private void InitPos()
     {
-        for(int x = 0; x < width; x++)
+        for (int x = 0; x < width; x++)
         {
-            for(int y = 0; y < height; y++)
+            for (int y = 0; y < height; y++)
             {
                 terrainMap[x, y] = UnityEngine.Random.Range(1, 101) < initChance ? 1 : 0;
             }
@@ -130,7 +129,7 @@ public class TileAutomata : MonoBehaviour
         topMap.ClearAllTiles();
         botMap.ClearAllTiles();
 
-        if(complete)
+        if (complete)
         {
             terrainMap = null;
         }
@@ -145,9 +144,9 @@ public class TileAutomata : MonoBehaviour
     {
         List<Vector3> availTiles = new List<Vector3>();
         Grid grid = botMap.layoutGrid;
-        foreach(var position in botMap.cellBounds.allPositionsWithin)
+        foreach (var position in botMap.cellBounds.allPositionsWithin)
         {
-            if(!botMap.HasTile(position)) continue;
+            if (!botMap.HasTile(position)) continue;
 
             availTiles.Add(grid.GetCellCenterWorld(position));
         }
@@ -160,9 +159,9 @@ public class TileAutomata : MonoBehaviour
     {
         List<Vector3> availTiles = new List<Vector3>();
         Grid grid = botMap.layoutGrid;
-        foreach(var position in botMap.cellBounds.allPositionsWithin)
+        foreach (var position in botMap.cellBounds.allPositionsWithin)
         {
-            if(!botMap.HasTile(position)) continue;
+            if (!botMap.HasTile(position)) continue;
             Debug.Log(grid.GetCellCenterWorld(position));
             availTiles.Add(grid.GetCellCenterWorld(position));
         }
